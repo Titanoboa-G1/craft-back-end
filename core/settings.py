@@ -62,6 +62,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # third party
     "corsheaders",
+    "rest_framework",
+    "account",
 ]
 
 MIDDLEWARE = [
@@ -75,6 +77,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+AUTH_USER_MODEL = "account.CustomUser"
 
 ROOT_URLCONF = "core.urls"
 
@@ -136,7 +139,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -164,3 +166,14 @@ CORS_ORIGIN_WHITELIST = tuple(env.list("ALLOWED_ORIGINS"))
 CORS_ALLOW_ALL_ORIGINS = env.bool("ALLOW_ALL_ORIGINS")
 CSRF_TRUSTED_ORIGINS = tuple(env.list("ALLOWED_ORIGINS"))
 CORS_ALLOWED_ORIGINS = tuple(env.list("ALLOWED_ORIGINS"))
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+    ),
+}
