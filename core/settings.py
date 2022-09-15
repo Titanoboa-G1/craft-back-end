@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
+import os
+
 import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -60,8 +62,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # My apps
+    "craft",
     # third party
     "corsheaders",
+    'rest_framework',
+
 ]
 
 MIDDLEWARE = [
@@ -164,3 +170,6 @@ CORS_ORIGIN_WHITELIST = tuple(env.list("ALLOWED_ORIGINS"))
 CORS_ALLOW_ALL_ORIGINS = env.bool("ALLOW_ALL_ORIGINS")
 CSRF_TRUSTED_ORIGINS = tuple(env.list("ALLOWED_ORIGINS"))
 CORS_ALLOWED_ORIGINS = tuple(env.list("ALLOWED_ORIGINS"))
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
