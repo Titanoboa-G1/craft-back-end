@@ -75,8 +75,4 @@ class TestViewResponses(TestCase):
         response = self.c.get("/")
         self.assertEqual(response.status_code, 200)
 
-    def test_product_detail_url(self):
-        response = self.c.get(reverse(""))
-        # self.assertEqual()
 
-    # def test_product_list_view(self):
