@@ -75,4 +75,3 @@ class TestViewResponses(TestCase):
         response = self.c.get("/")
         self.assertEqual(response.status_code, 200)
 
-
