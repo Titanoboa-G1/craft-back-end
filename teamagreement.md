@@ -4,7 +4,7 @@
 * Omar Al Ghonimat
 * Raghd Smadi
 * Essa Abu al-Khair
-* Hamad Dwairi
+<!-- * Hamad Dwairi -->
 
 ## Cooperation Plan
 
@@ -14,7 +14,7 @@
 | Omar Al Ghonimat  | Reseach and problem solving   |
 | Raghd Smadi   | Problem solving   |
 | Essa Abu al-Khair   | Data Science      |
-| Hamad Dwairi   | Presentation adressing ideas    |
+<!-- | Hamad Dwairi   | Presentation adressing ideas    | -->
 
 ## Conflict Plan
 

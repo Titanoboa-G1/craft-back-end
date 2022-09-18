@@ -1,11 +1,13 @@
-from tabnanny import verbose
-from unicodedata import category
-
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.text import slugify
+# from django.conf import settings
+
 
 # Create your models here.
+class ProductManager(models.Manager):
+    def get_queryset(self):
+        return super(ProductManager, self).get_queryset().filter(is_active=True)
 
 
 class Category(models.Model):
@@ -56,6 +58,8 @@ class Product(models.Model):
     # slug = models.SlugField(max_length=256) # to have the ability to write the product name in the url directly
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    objects = models.Manager()
+    products = ProductManager()
 
     class Meta:
         verbose_name_plural = "Products"
@@ -67,13 +71,89 @@ class Product(models.Model):
         return self.title
 
 
-class Order:
-    pass
 
 
-class Cart:
-    pass
+class User(models.Model):
+    name = models.CharField(max_length=255, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "{} - {} - {}".format(self.name,
+                                     self.created_at,
+                                     self.updated_at)
 
 
-class Payment:
-    pass
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    item = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
+    quantity = models.IntegerField(null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "{} - {} - {} - {} - {}".format(self.user,
+                                               self.item,
+                                               self.quantity,
+                                               self.created_at,
+                                               self.updated_at)
+
+
+
+# class Order(models.Model):
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#     ref_code = models.CharField(max_length=20)
+#     products = models.ManyToManyField(Cart)
+#     start_date = models.DateTimeField(auto_now_add=True)
+#     ordered_date = models.DateTimeField()
+#     ordered = models.BooleanField(default=False)
+
+
+#     def __str__(self):
+#         return self.user.username
+
+#     def get_total(self):
+#         total = 0
+#         for order_item in self.products.all():
+#             total += order_item.get_total_item_price()
+#         return total
+
+# class Address(models.Model):
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL,
+#                              on_delete=models.CASCADE)
+#     street_address = models.CharField(max_length=100)
+#     apartment_address = models.CharField(max_length=100)
+#     country = CountryField(multiple=False)
+#     zip = models.CharField(max_length=100)
+#     address_type = models.CharField(max_length=1)
+#     default = models.BooleanField(default=False)
+
+#     def __str__(self):
+#         return self.user.username
+
+#     class Meta:
+#         verbose_name_plural = 'Addresses'
+
+
+# class Payment(models.Model):
+#     stripe_charge_id = models.CharField(max_length=50)
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL,
+#                              on_delete=models.SET_NULL, blank=True, null=True)
+#     amount = models.FloatField()
+#     timestamp = models.DateTimeField(auto_now_add=True)
+
+#     def __str__(self):
+#         return self.user.username
+       
+
+# class Cart(models.Model):
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#     ordered = models.BooleanField(default=False)
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+#     quantity = models.IntegerField(default=1)
+
+#     def __str__(self):
+#         return f"{self.quantity} of {self.product.title}"    
+
+#     def get_total_item_price(self):
+#         return self.quantity * self.product.price
