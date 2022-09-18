@@ -1,10 +1,11 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
+# from django.conf import settings
 
 from craft.models import Category, Product
 
 """Testing Models"""
-
+# User = settings.AUTH_USER_MODEL
 
 class TestCategoriesModel(TestCase):
     def setUp(self):
@@ -25,25 +26,25 @@ class TestCategoriesModel(TestCase):
         self.assertEqual(str(data), "django")
 
 
-class TestProductModel(TestCase):
-    def setUp(self):
-        Category.objects.create(name="django", slug="django")
-        User.objects.create(username="admin")
-        self.data1 = Product.objects.create(
-            category_id=1,
-            created_by_id=1,
-            title="django test",
-            price="10.00",
-            image="django",
-        )
+# class TestProductModel(TestCase):
+#     def setUp(self):
+#         Category.objects.create(name="django", slug="django")
+#         User.objects.create(username="admin")
+#         self.data1 = Product.objects.create(
+#             category_id=1,
+#             created_by_id=1,
+#             title="django test",
+#             price="10.00",
+#             image="django",
+#         )
 
-    def test_products_model_entry(self):
-        """
-        Test Product model data insertion/types/field attributes
-        """
-        data = self.data1
-        self.assertTrue(isinstance(data, Product))
-        self.assertEqual(str(data), "django test")
+#     def test_products_model_entry(self):
+#         """
+#         Test Product model data insertion/types/field attributes
+#         """
+#         data = self.data1
+#         self.assertTrue(isinstance(data, Product))
+#         self.assertEqual(str(data), "django test")
 
 
 """Testing Views"""
@@ -58,20 +59,20 @@ from django.urls import reverse
 #         pass
 
 
-class TestViewResponses(TestCase):
-    def setUp(self):
-        self.c = Client()
-        Category.objects.create(name="django", slug="django")
-        User.objects.create(username="admin")
-        self.data1 = Product.objects.create(
-            category_id=1,
-            created_by_id=1,
-            title="django test",
-            price="10.00",
-            image="django",
-        )
+# class TestViewResponses(TestCase):
+#     def setUp(self):
+#         self.c = Client()
+#         Category.objects.create(name="django", slug="django")
+#         User.objects.create(username="admin")
+#         self.data1 = Product.objects.create(
+#             category_id=1,
+#             created_by_id=1,
+#             title="django test",
+#             price="10.00",
+#             image="django",
+#         )
 
-    def test_url_allowed_hosts(self):
-        response = self.c.get("/")
-        self.assertEqual(response.status_code, 200)
+#     def test_url_allowed_hosts(self):
+#         response = self.c.get("/")
+#         self.assertEqual(response.status_code, 200)
 
