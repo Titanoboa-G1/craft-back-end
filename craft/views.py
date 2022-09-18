@@ -11,7 +11,7 @@ from rest_framework.generics import (
 )
 from rest_framework.response import Response
 
-from .models import Category, Product, Order, Cart, User
+from .models import Category, Product, Cart, User
 from .serializers import CartSerializer, CategorySerializer, ProductSerializer
 from .helpers import CartHelper
 
