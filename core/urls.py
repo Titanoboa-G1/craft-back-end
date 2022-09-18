@@ -20,9 +20,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+base_url = "craftsman/"
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("craft.urls")),
+    path("".join([base_url, "user/"]), include("account.urls")),
 ]
 
 if settings.DEBUG:
