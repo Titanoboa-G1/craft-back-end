@@ -187,3 +187,5 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.BasicAuthentication",
     ),
 }
+
+CSRF_TRUSTED_ORIGINS = ['https://craft-herfah.herokuapp.com/']
