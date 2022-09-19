@@ -67,6 +67,8 @@ INSTALLED_APPS = [
     # third party
     "corsheaders",
     "rest_framework",
+    "events",
+'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
