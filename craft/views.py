@@ -13,7 +13,7 @@ from rest_framework.response import Response
 
 from .models import Category, Product, Cart, User
 from .serializers import CartSerializer, CategorySerializer, ProductSerializer
-from .helpers import CartHelper
+# from .helpers import CartHelper
 
 # Create your views here.
 
@@ -37,6 +37,9 @@ class CategoryListCreateView(ListCreateAPIView):
         products = Product.objects.filter(category=category).values()
         return Response(products, status=status.HTTP_200_OK)
 
+class CartListCreateView(ListCreateAPIView):
+    queryset = Cart.objects.all().order_by('id')
+    serializer_class = CartSerializer
 
 # class CheckoutView(View):
 #     def get(self, *args, **kwargs):
@@ -52,9 +55,9 @@ class CategoryListCreateView(ListCreateAPIView):
 #             message = info(self.request, "You do not have an active order")
 #             return redirect()
 
-class CartViewSet(viewsets.ModelViewSet):
-    queryset = Cart.objects.all().order_by('id')
-    serializer_class = CartSerializer
+# class CartViewSet(viewsets.ModelViewSet):
+#     queryset = Cart.objects.all().order_by('id')
+#     serializer_class = CartSerializer
 
     # @action (methods=['get'], detail=False, url_path='checkout/(?P<userId>[^/.]+)', url_name='checkout')
     # def checkout(self, request, *args, **kwargs):
