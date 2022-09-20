@@ -61,11 +61,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "corsheaders",
     # My apps
     "craft",
     "account",
     # third party
-    "corsheaders",
     "rest_framework",
     "events",
 'rest_framework_simplejwt',
