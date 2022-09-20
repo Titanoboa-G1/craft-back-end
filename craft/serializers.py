@@ -7,10 +7,13 @@ from .models import Cart, Category, Product, User
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
     class Meta:
         model = Product
         fields = "__all__"
 
+    def get_user(self, obj):
+        return obj.user.all().values()
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
