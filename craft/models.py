@@ -1,5 +1,5 @@
 # from django.contrib.auth.models import User
-from importlib.metadata import requires
+
 from typing_extensions import Required
 from django.conf import settings
 from django.db import models
@@ -32,15 +32,6 @@ class Category(models.Model):
         self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
 
-class User(models.Model):
-    name = models.CharField(max_length=255, null=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return "{} - {} - {}".format(self.name,
-                                     self.created_at,
-                                     self.updated_at)
 
 class Product(models.Model):
     category = models.ForeignKey(
@@ -85,6 +76,15 @@ class Product(models.Model):
         return self.title
 
 
+class User(models.Model):
+    name = models.CharField(max_length=255, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "{} - {} - {}".format(self.name,
+                                     self.created_at,
+                                     self.updated_at)
 
 
 
