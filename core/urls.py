@@ -29,9 +29,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("craft.urls")),
     path("".join([base_url, "user/"]), include("account.urls")),
-path('api/', include('events.urls')),
+    path('api/', include('events.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path("".join([base_url]), include('rest_framework.urls')),
 ]
 
 if settings.DEBUG:
