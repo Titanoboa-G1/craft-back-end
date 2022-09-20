@@ -188,4 +188,4 @@ REST_FRAMEWORK = {
     ),
 }
 
-CSRF_TRUSTED_ORIGINS = ['https://craft-herfah.herokuapp.com/']
+CSRF_TRUSTED_ORIGINS = ['*']
