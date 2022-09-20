@@ -5,13 +5,15 @@ from .views import (
     CategoryListCreateView,
     ProductDetailView,
     ProductListCreateView,
-    CartViewSet,
+    CartListCreateView,
+    # CartViewSet,
 )
 
 app_name = "craft"
 
-router = routers.DefaultRouter()
-router.register(r'cart', CartViewSet)
+# router = routers.DefaultRouter()
+# router.register(r'cart', CartViewSet)
+
 # router.register('cart', CartViewSet, basename='cart')   
 
 urlpatterns = [
@@ -19,5 +21,8 @@ urlpatterns = [
     path("", ProductListCreateView.as_view(), name="product_list"),
     path("<slug:slug>", CategoryListCreateView.as_view(), name="category_list"),
     path("<int:pk>/", ProductDetailView.as_view(), name="product_detail"),
+    path("cart/", CartListCreateView.as_view(), name="cart"),
     # path("cart/", include((router.urls, 'craft.cart'))),
-]+router.urls
+    ]
+
+# ]+router.urls
