@@ -60,15 +60,17 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
+    # third party
+    "rest_framework",
     "corsheaders",
+    'rest_framework_simplejwt',
+    'cloudinary_storage',
+    "django.contrib.staticfiles",
+    'cloudinary',
     # My apps
     "craft",
     "account",
-    # third party
-    "rest_framework",
     "events",
-'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -175,6 +177,7 @@ CSRF_TRUSTED_ORIGINS = tuple(env.list("ALLOWED_ORIGINS"))
 CORS_ALLOWED_ORIGINS = tuple(env.list("ALLOWED_ORIGINS"))
 
 MEDIA_URL = "/media/"
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 REST_FRAMEWORK = {
@@ -189,3 +192,9 @@ REST_FRAMEWORK = {
 }
 
 CSRF_TRUSTED_ORIGINS = ['https://craft-herfah.herokuapp.com/', 'https://craft-herfah.herokuapp.com', 'http://localhost:3000/', 'http://localhost:3000']
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dt03txyuy',
+    'API_KEY': '682611111553871',
+    'API_SECRET': 'sYApboC48QtYxvZ2yN5hO4rDtDY'
+}

@@ -1,7 +1,11 @@
 # from django.contrib.auth.models import User
+from importlib.metadata import requires
+from typing_extensions import Required
 from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
+from account.models import CustomUser
+
 # from django.conf import settings
 
 
@@ -28,15 +32,24 @@ class Category(models.Model):
         self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
 
+class User(models.Model):
+    name = models.CharField(max_length=255, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "{} - {} - {}".format(self.name,
+                                     self.created_at,
+                                     self.updated_at)
 
 class Product(models.Model):
     category = models.ForeignKey(
         Category, related_name="product", on_delete=models.CASCADE
     )
 
+    # created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     created_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="product_creator"
-    )
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="product_creator")
     # user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     title = models.CharField(max_length=256)
@@ -74,15 +87,6 @@ class Product(models.Model):
 
 
 
-class User(models.Model):
-    name = models.CharField(max_length=255, null=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return "{} - {} - {}".format(self.name,
-                                     self.created_at,
-                                     self.updated_at)
 
 
 class Cart(models.Model):
