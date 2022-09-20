@@ -61,7 +61,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     role = models.CharField(max_length=256,choices=choices,default=USER)
     description = models.TextField(blank=True)
-    image = models.CharField(max_length=1000, blank=True)
+    # image = models.CharField(max_length=1000, blank=True)
+    image = models.ImageField(upload_to="craftsmen_images/")
 
     USERNAME_FIELD = "email"
 
