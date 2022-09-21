@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
+from datetime import timedelta
 
 import environ
 
@@ -197,4 +198,7 @@ CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dt03txyuy',
     'API_KEY': '682611111553871',
     'API_SECRET': 'sYApboC48QtYxvZ2yN5hO4rDtDY'
+}
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=60*60)
 }
