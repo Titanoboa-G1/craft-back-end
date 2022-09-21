@@ -22,31 +22,25 @@ class EventViewset(viewsets.ModelViewSet):
 class UpcomingEventsList(generics.ListCreateAPIView):
     serializer_class = EventSerializer()
 
-    # def get_serializer_context(self,request):
-    #     user = decode_token(request.headers.get('Authorization'))
-    #     context = super().get_serializer_context()
-    #
-    #     context["user"] = user
-    #     return context
-
-    # def get_queryset(self):
-    #     today = datetime.datetime.today()
-    #     return Event.objects.filter(day__gte=today)
     queryset = Event.objects.all()
     serializer_class= userEventSerializer
     permission_classes = (IsAdminORReadOnly,IsAuthenticated)
     def post(self,request):
-        user=decode_token(request.headers.get('Authorization'))
+        try:
+          user=decode_token(request.headers.get('Authorization'))
+          EventSerializer(user)
+          if CustomUser.objects.filter(pk=user)[0].is_staff:
+              print(CustomUser.objects.filter(pk=user)[0].email)
+              self.serializer_class = EventSerializer
+          else:
+              print(CustomUser.objects.filter(pk=user)[0].role)
+          return Response({}, status=status.HTTP_201_CREATED)
+        except :
+            return Response({}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
         # print("hello")
         # print(user)
-        EventSerializer(user)
-        if CustomUser.objects.filter(pk=user)[0].is_staff:
-            print(CustomUser.objects.filter(pk=user)[0].email)
-            self.serializer_class= EventSerializer
-        else :
-            print(CustomUser.objects.filter(pk=user)[0].role)
-        return Response({},status=status.HTTP_201_CREATED)
-
 
 
 import jwt
